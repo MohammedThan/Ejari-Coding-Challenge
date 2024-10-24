@@ -8,10 +8,12 @@ import routes from "./routes";
 // * Database
 import connectDB from "./database";
 
+// * Config
+import { PORT } from "./config";
+
 connectDB();
 
 const app = express();
-const port = 5000;
 
 // * Middlewares
 app.use(express.json());
@@ -47,6 +49,6 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
