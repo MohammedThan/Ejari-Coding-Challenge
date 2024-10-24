@@ -1,7 +1,8 @@
 // * Imports
 import express from "express";
-import cors from "cors";
 
+// * Middlewares
+import Middlewares from "./middlewares";
 // * Routes
 import routes from "./routes";
 
@@ -11,19 +12,13 @@ import connectDB from "./database";
 // * Config
 import { PORT } from "./config";
 
-connectDB();
-
 const app = express();
 
-// * Middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// * Database connection
+connectDB();
 
-app.use(
-  cors({
-    origin: true,
-  })
-);
+// * Middlewares
+Middlewares(app);
 
 app.get("/", (req, res) => {
   res.send("Hello, Welcome to Ejari coding challenge!");
