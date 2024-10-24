@@ -5,6 +5,11 @@ import cors from "cors";
 // * Routes
 import routes from "./routes";
 
+// * Database
+import connectDB from "./database";
+
+connectDB();
+
 const app = express();
 const port = 5000;
 
