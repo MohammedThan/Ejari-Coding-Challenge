@@ -4,6 +4,7 @@ import { fromError } from "zod-validation-error";
 import bookSchema, { bookUpdateSchema } from "../../../schema/books";
 import { z } from "zod";
 import idSchema from "../../../schema/id";
+import paginationSchema from "../../../schema/pagination";
 
 const router = express.Router();
 
@@ -50,9 +51,34 @@ router.post("/", async (req, res) => {
 // 2. Retrieve a List of All Books
 router.get("/", async (req, res) => {
   try {
-    const books = await Book.find();
-    res.status(200).json(books);
+    const parsedQuery = paginationSchema.parse(req.query);
+    const { page, limit } = parsedQuery;
+
+    const skip = (page - 1) * limit; // Calculate items to skip
+
+    const books = await Book.find().skip(skip).limit(limit);
+
+    const totalBooks = await Book.countDocuments();
+
+    const totalPages = Math.ceil(totalBooks / limit);
+
+    res.status(200).json({
+      totalBooks,
+      totalPages,
+      currentPage: page,
+      books,
+    });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      const formattedErrors = fromError(error);
+
+      res.status(400).json({
+        message: "Validation error",
+        error: formattedErrors,
+      });
+      return;
+    }
+
     res.status(500).json({ message: "Error retrieving books", error });
   }
 });
