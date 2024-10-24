@@ -8,7 +8,6 @@ import paginationSchema from "../../../schema/pagination";
 
 const router = express.Router();
 
-//! make sure response code is correct
 // 1. Add a New Book
 router.post("/", async (req, res) => {
   try {
@@ -29,7 +28,6 @@ router.post("/", async (req, res) => {
       // Format validation errors
       const formattedErrors = fromError(error);
 
-      //! make uniform return
       res.status(400).json({
         message: "Validation error",
         error: formattedErrors, // Send detailed validation errors

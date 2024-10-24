@@ -19,7 +19,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//? why cors?
 app.use(
   cors({
     origin: true,
@@ -27,7 +26,6 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  //!  change the text here
   res.send("Hello, Welcome to Ejari coding challenge!");
 });
 
@@ -35,8 +33,6 @@ app.get("/", (req, res) => {
 app.use(routes);
 
 // * Invalid requests (non-existing routes):
-//! check below info
-//? why are there multiple errors returned -> so different apps can use the api
 app.use((req, res) => {
   res.status(404).send({
     error: {
