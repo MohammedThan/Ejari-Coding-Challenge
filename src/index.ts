@@ -3,6 +3,7 @@ import express from "express";
 
 // * Middlewares
 import Middlewares from "./middlewares";
+
 // * Routes
 import routes from "./routes";
 
