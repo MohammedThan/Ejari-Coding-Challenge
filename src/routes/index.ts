@@ -4,7 +4,7 @@ import express from "express";
 // * Routes
 import api from "./api";
 
-const router = express();
+const router = express.Router();
 
 router.use("/api", api);
 
