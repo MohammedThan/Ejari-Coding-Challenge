@@ -21,7 +21,7 @@ app.use(
 
 app.get("/", (req, res) => {
   //!  change the text here
-  res.send("Hello, TypeScript Node Express!");
+  res.send("Hello, Welcome to Ejari coding challenge!");
 });
 
 // * Routes:
