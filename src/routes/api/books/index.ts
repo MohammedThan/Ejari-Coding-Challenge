@@ -1,23 +1,46 @@
 import express from "express";
 import Book from "../../../models/books";
+import { fromError } from "zod-validation-error";
+import bookSchema from "../../../schema/books";
+import { z } from "zod";
 
 const router = express.Router();
 //! make sure response code is correct
 // 1. Add a New Book
 router.post("/", async (req, res) => {
   try {
-    const { title, author, publishedDate, numberOfPages } = req.body;
+    const parsedData = bookSchema.parse(req.body);
+
     const newBook = new Book({
-      title,
-      author,
-      publishedDate: new Date(publishedDate),
-      numberOfPages,
+      title: parsedData.title,
+      author: parsedData.author,
+      publishedDate: new Date(parsedData.publishedDate),
+      numberOfPages: parsedData.numberOfPages,
     });
 
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
   } catch (error) {
-    res.status(500).json({ message: "Error adding the book", error });
+    // Check if the error is from Zod (validation error)
+    if (error instanceof z.ZodError) {
+      // Format validation errors
+      const formattedErrors = fromError(error);
+
+      //! make uniform return
+      res.status(400).json({
+        message: "Validation error",
+        errors: formattedErrors, // Send detailed validation errors
+      });
+      return;
+    }
+
+    // Log server errors for debugging
+    console.error("Server Error:", error);
+
+    // Generic server error response
+    res
+      .status(500)
+      .json({ message: "Internal server error. Please try again later." });
   }
 });
 
