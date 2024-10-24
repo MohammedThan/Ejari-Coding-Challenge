@@ -5,11 +5,12 @@ import bookSchema, { bookUpdateSchema } from "../../../schema/books";
 import { z } from "zod";
 import idSchema from "../../../schema/id";
 import paginationSchema from "../../../schema/pagination";
+import basicAuth from "../../../middlewares/auth";
 
 const router = express.Router();
 
 // 1. Add a New Book
-router.post("/", async (req, res) => {
+router.post("/", basicAuth, async (req, res) => {
   try {
     const parsedData = bookSchema.parse(req.body);
 
@@ -110,7 +111,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // 4. Update a Book's Details
-router.put("/:id", async (req, res) => {
+router.put("/:id", basicAuth, async (req, res) => {
   try {
     const validatedParams = idSchema.parse(req.params);
     const validatedBody = bookUpdateSchema.parse(req.body);
@@ -148,7 +149,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // 5. Delete a Book
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", basicAuth, async (req, res) => {
   try {
     const validatedParams = idSchema.parse(req.params);
 
