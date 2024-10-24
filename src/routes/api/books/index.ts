@@ -5,6 +5,7 @@ import bookSchema from "../../../schema/books";
 import { z } from "zod";
 
 const router = express.Router();
+
 //! make sure response code is correct
 // 1. Add a New Book
 router.post("/", async (req, res) => {
@@ -40,7 +41,10 @@ router.post("/", async (req, res) => {
     // Generic server error response
     res
       .status(500)
-      .json({ message: "Internal server error. Please try again later." });
+      .json({
+        message: "Internal server error. Please try again later.",
+        error,
+      });
   }
 });
 
