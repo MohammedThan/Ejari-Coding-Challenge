@@ -3,10 +3,7 @@ import { z } from "zod";
 const bookSchema = z.object({
   title: z.string().min(1, "Title is required"),
   author: z.string().min(1, "Author is required"),
-  publishedDate: z
-    .string()
-    .date()
-    .transform((date) => new Date(date)),
+  publishedDate: z.string().pipe(z.coerce.date()),
   numberOfPages: z
     .number()
     .int()
