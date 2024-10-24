@@ -1,8 +1,9 @@
 import express from "express";
 import Book from "../../../models/books";
 import { fromError } from "zod-validation-error";
-import bookSchema from "../../../schema/books";
+import bookSchema, { bookUpdateSchema } from "../../../schema/books";
 import { z } from "zod";
+import idSchema from "../../../schema/id";
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ router.post("/", async (req, res) => {
       //! make uniform return
       res.status(400).json({
         message: "Validation error",
-        errors: formattedErrors, // Send detailed validation errors
+        error: formattedErrors, // Send detailed validation errors
       });
       return;
     }
@@ -39,12 +40,10 @@ router.post("/", async (req, res) => {
     console.error("Server Error:", error);
 
     // Generic server error response
-    res
-      .status(500)
-      .json({
-        message: "Internal server error. Please try again later.",
-        error,
-      });
+    res.status(500).json({
+      message: "Internal server error. Please try again later.",
+      error,
+    });
   }
 });
 
@@ -61,13 +60,27 @@ router.get("/", async (req, res) => {
 // 3. Get Details of a Specific Book
 router.get("/:id", async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const validatedParams = idSchema.parse(req.params);
+
+    const book = await Book.findById(validatedParams.id);
     if (!book) {
       res.status(404).send({ message: "Book not found" });
       return;
     }
     res.status(200).json(book);
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      const formattedErrors = fromError(error);
+
+      res.status(400).json({
+        message: "Validation error",
+        error: formattedErrors,
+      });
+      return;
+    }
+
+    console.error("Server Error:", error);
+
     res.status(500).json({ message: "Error retrieving book", error });
   }
 });
@@ -75,10 +88,13 @@ router.get("/:id", async (req, res) => {
 // 4. Update a Book's Details
 router.put("/:id", async (req, res) => {
   try {
-    const { title, author, publishedDate, numberOfPages } = req.body;
+    const validatedParams = idSchema.parse(req.params);
+    const validatedBody = bookUpdateSchema.parse(req.body);
+
+    // Find and update the book
     const updatedBook = await Book.findByIdAndUpdate(
-      req.params.id,
-      { title, author, publishedDate, numberOfPages },
+      validatedParams.id,
+      validatedBody,
       { new: true, runValidators: true }
     );
 
@@ -88,6 +104,21 @@ router.put("/:id", async (req, res) => {
     }
     res.status(200).json(updatedBook);
   } catch (error) {
+    // Check if the error is from Zod (validation error)
+    if (error instanceof z.ZodError) {
+      const formattedErrors = error.errors;
+
+      res.status(400).json({
+        message: "Validation error",
+        error: formattedErrors,
+      });
+      return;
+    }
+
+    // Log server errors for debugging
+    console.error("Server Error:", error);
+
+    // Generic server error response
     res.status(500).json({ message: "Error updating book", error });
   }
 });
@@ -95,13 +126,27 @@ router.put("/:id", async (req, res) => {
 // 5. Delete a Book
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedBook = await Book.findByIdAndDelete(req.params.id);
+    const validatedParams = idSchema.parse(req.params);
+
+    const deletedBook = await Book.findByIdAndDelete(validatedParams.id);
     if (!deletedBook) {
       res.status(404).json({ message: "Book not found" });
       return;
     }
     res.status(200).json({ message: "Book successfully deleted" });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      const formattedErrors = fromError(error);
+
+      res.status(400).json({
+        message: "Validation error",
+        error: formattedErrors,
+      });
+      return;
+    }
+
+    console.error("Server Error:", error);
+
     res.status(500).json({ message: "Error deleting book", error });
   }
 });

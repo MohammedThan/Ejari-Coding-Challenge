@@ -12,6 +12,7 @@ const bookSchema = z.object({
     .positive("Number of pages must be a positive integer"),
 });
 
+export const bookUpdateSchema = bookSchema.partial();
 export type Book = z.infer<typeof bookSchema>;
 
 export default bookSchema;
