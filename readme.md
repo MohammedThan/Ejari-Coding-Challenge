@@ -9,8 +9,6 @@ This project is a simple RESTful API for managing a collection of books. It allo
 - [Technologies Used](#technologies-used)
 - [Requirements](#requirements)
 - [Installation](#installation)
-  - [Environment Variables](#environment-variables)
-  - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
   - [Add a New Book](#1-add-a-new-book)
   - [Retrieve a List of All Books](#2-retrieve-a-list-of-all-books)
