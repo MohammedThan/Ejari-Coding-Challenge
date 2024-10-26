@@ -4,7 +4,7 @@ This project is a simple RESTful API for managing a collection of books. It allo
 
 ## Table of Contents
 
-- [Objective](##objective)
+- [Objective](#objective)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Requirements](#requirements)
