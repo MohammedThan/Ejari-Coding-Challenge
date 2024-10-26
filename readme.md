@@ -10,14 +10,7 @@ This project is a simple RESTful API for managing a collection of books. It allo
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [API Endpoints](#api-endpoints)
-  - [Add a New Book](#1-add-a-new-book)
-  - [Retrieve a List of All Books](#2-retrieve-a-list-of-all-books)
-  - [Get Details of a Specific Book](#3-get-details-of-a-specific-book)
-  - [Update a Book's Details](#4-update-a-books-details)
-  - [Delete a Book](#5-delete-a-book)
 - [Bonus Features](#bonus-features)
-  - [Basic Authentication](#basic-authentication)
-  - [Pagination](#pagination)
 - [Error Handling](#error-handling)
 - [Contributing](#contributing)
 
@@ -217,12 +210,6 @@ Create a RESTful API to manage books, allowing the following operations:
    ]
    }
    ```
-
-<!-- 2. **Retrieve a List of All Books**
-
-Endpoint: **GET** /api/books
-
-Response: Returns an array of all books. -->
 
 3. **Get Details of a Specific Book**
 
