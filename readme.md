@@ -146,8 +146,8 @@ Create a RESTful API to manage books, allowing the following operations:
 
    ### Query Parameters
 
-   - `page` (optional): The page number to retrieve (default is `1`).
-   - `limit` (optional): The number of items to return per page (default is `10`).
+   - `page` (required): The page number to retrieve.
+   - `limit` (required): The number of items to return per page.
 
    ### Response
 
