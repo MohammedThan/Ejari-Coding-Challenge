@@ -8,8 +8,7 @@ This project is a simple RESTful API for managing a collection of books. It allo
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Requirements](#requirements)
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
+- [Installation](#installation)
   - [Environment Variables](#environment-variables)
   - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
@@ -57,9 +56,7 @@ Create a RESTful API to manage books, allowing the following operations:
 - MongoDB (Local or hosted on a cloud service)
 - npm for package management
 
-## Getting Started
-
-### Installation
+## Installation
 
 1. **Clone the repository:**
 
