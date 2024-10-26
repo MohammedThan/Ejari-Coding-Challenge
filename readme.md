@@ -108,7 +108,7 @@ Create a RESTful API to manage books, allowing the following operations:
 
    **Example**
 
-  ##### Request:
+   ##### Request:
 
    **POST** /api/books
 
@@ -121,7 +121,7 @@ Create a RESTful API to manage books, allowing the following operations:
    }
    ```
 
-  ##### Response:
+   ##### Response:
 
    ```bash
    {
@@ -173,11 +173,11 @@ Create a RESTful API to manage books, allowing the following operations:
 
    **Example**
 
-  ##### Request
+   ##### Request
 
    **GET** /api/books?page=1&limit=10
 
-  ##### Response
+   ##### Response
 
    ```bash
    {
@@ -219,11 +219,11 @@ Create a RESTful API to manage books, allowing the following operations:
 
    **Example**
 
-  ##### Request:
+   ##### Request:
 
    **GET** /api/books/671a4fae1877b2bf34eb
 
-  ##### Response:
+   ##### Response:
 
    ```bash
    {
@@ -253,7 +253,7 @@ Create a RESTful API to manage books, allowing the following operations:
 
    **Example**
 
-  ##### Request:
+   ##### Request:
 
    **PUT** /api/books/671a4fae1877b2bf34eb
 
@@ -264,7 +264,7 @@ Create a RESTful API to manage books, allowing the following operations:
    }
    ```
 
-  ##### Response:
+   ##### Response:
 
    ```bash
    {
@@ -284,11 +284,11 @@ Create a RESTful API to manage books, allowing the following operations:
 
    **Example**
 
-  ##### Request:
+   ##### Request:
 
    **DELETE** /api/books/671a4fae1877b2bf34eb
 
-  ##### Response:
+   ##### Response:
 
    ```bash
    {
